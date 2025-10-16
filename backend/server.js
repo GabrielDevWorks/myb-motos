@@ -35,6 +35,7 @@ const upload = multer({ storage: storage });
 // Middleware para servir arquivos estáticos (MUITO IMPORTANTE!)
 // Isso permite que o frontend acesse as imagens na pasta 'assets'
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
+let pool; // Definido globalmente para ser acessível por todas as funções
 
 const dbConfig = {
     host: 'localhost',
@@ -60,23 +61,33 @@ async function initializeDatabase() {
         await connection.end();
         
         // Cria um "pool de conexões" para otimizar as requisições ao banco
-        const pool = mysql.createPool(dbConfig);
+        pool = mysql.createPool(dbConfig);
         console.log('Conectado ao banco de dados MySQL.');
+        // --- CRIAÇÃO E VERIFICAÇÃO DAS TABELAS ---
 
-        // Cria a tabela de motos se ela não existir (já com a coluna 'descricao')
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS motos (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                marca VARCHAR(255) NOT NULL,
-                modelo VARCHAR(255) NOT NULL,
-                ano INT NOT NULL,
-                km INT NOT NULL,
-                preco DECIMAL(10, 2) NOT NULL,
-                imagem_url VARCHAR(255),
-                descricao TEXT
-            );
-        `);
+    // Cria a tabela de USUARIOS se ela não existir
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS usuarios (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL UNIQUE,
+            password_hash VARCHAR(255) NOT NULL
+        );
+    `);
 
+    // Cria a tabela de MOTOS se ela não existir
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS motos (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            marca VARCHAR(255) NOT NULL,
+            modelo VARCHAR(255) NOT NULL,
+            ano INT NOT NULL,
+            km INT NOT NULL,
+            preco DECIMAL(10, 2) NOT NULL,
+            imagem_url VARCHAR(255),
+            descricao TEXT,
+            destaque BOOLEAN DEFAULT 0
+        );
+    `);
         // Verifica se a tabela está vazia para inserir os dados iniciais
         const [rows] = await pool.query("SELECT COUNT(*) as count FROM motos");
         if (rows[0].count === 0) {
@@ -141,6 +152,8 @@ app.get('/api/motos', async (req, res) => {
         res.status(500).json({ "error": error.message });
     }
 });
+
+
     // Rota para buscar apenas as 3 motos mais recentes para a homepage
     app.get('/api/motos/destaques', async (req, res) => {
         try {
@@ -174,28 +187,35 @@ app.get('/api/motos', async (req, res) => {
         }
     });
 
+// Rota para buscar UMA moto específica pelo seu ID (AGORA COM MÚLTIPLAS IMAGENS)
 app.get('/api/motos/:id', async (req, res) => {
-        try {
-            const { id } = req.params; // Pega o ID que vem na URL (ex: /api/motos/1)
-            
-            // Faz a busca no banco de dados usando o ID de forma segura
-            const [rows] = await pool.query("SELECT * FROM motos WHERE id = ?", [id]);
-            
-            // Se a busca não retornar nenhuma moto, enviamos um erro 404
-            if (rows.length === 0) {
-                return res.status(404).json({ message: "Moto não encontrada" });
-            }
-            
-            // Se encontrou, retorna os dados da moto (apenas o primeiro resultado)
-            res.json({
-                message: "success",
-                data: rows[0] 
-            });
-        } catch (error) {
-            console.error('Erro ao buscar moto por ID:', error);
-            res.status(500).json({ "error": error.message });
+    try {
+        const { id } = req.params;
+
+        // 1. Busca os dados principais da moto
+        const [motoRows] = await pool.query("SELECT * FROM motos WHERE id = ?", [id]);
+
+        if (motoRows.length === 0) {
+            return res.status(404).json({ message: "Moto não encontrada" });
         }
-    });
+
+        const moto = motoRows[0];
+
+        // 2. Busca todas as imagens associadas a essa moto
+        const [imagensRows] = await pool.query("SELECT id, imagem_url FROM moto_imagens WHERE moto_id = ?", [id]);
+
+        // 3. Adiciona a lista de imagens ao objeto da moto
+        moto.imagens = imagensRows;
+
+        res.json({
+            message: "success",
+            data: moto
+        });
+    } catch (error) {
+        console.error('Erro ao buscar moto por ID:', error);
+        res.status(500).json({ "error": error.message });
+    }
+});
 // Rota para autenticação de login
 app.post('/api/login', async (req, res) => {
     try {
@@ -229,33 +249,145 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Rota para CRIAR uma nova moto (AGORA COM UPLOAD DE IMAGEM)
-app.post('/api/motos', upload.single('imagem'), async (req, res) => {
+// Rota para CRIAR uma nova moto (AGORA COM MÚLTIPLAS IMAGENS)
+// Usamos upload.array('imagens', 10) para aceitar até 10 arquivos do campo 'imagens'
+app.post('/api/motos', upload.array('imagens', 10), async (req, res) => {
+    // Usamos uma transação para garantir a consistência dos dados
+    const connection = await pool.getConnection();
     try {
-        // Os dados do formulário de texto vêm em req.body
-        const { marca, modelo, ano, km, preco, descricao, destaque } = req.body;
+        await connection.beginTransaction();
 
-        // A informação do arquivo de imagem vem em req.file
-        if (!req.file) {
-            return res.status(400).json({ message: "Nenhum arquivo de imagem enviado." });
+        // Os dados de texto vêm em req.body
+        const { marca, modelo, ano, km, preco, descricao, destaque } = req.body;
+        // Os arquivos de imagem vêm em req.files (um array)
+        const files = req.files;
+
+        if (!files || files.length === 0) {
+            return res.status(400).json({ message: "Pelo menos uma imagem é obrigatória." });
         }
 
-        // Pega o caminho do arquivo salvo e normaliza para usar barras '/'
-        const imagem_url = req.file.path.replace(/\\/g, "/");
+        // A primeira imagem será a imagem de capa (thumbnail)
+        const imagem_de_capa = files[0].path.replace(/\\/g, "/");
 
-        const query = `
+        // 1. Insere os dados principais na tabela 'motos'
+        const motoQuery = `
             INSERT INTO motos (marca, modelo, ano, km, preco, imagem_url, descricao, destaque) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `;
-        const params = [marca, modelo, parseInt(ano), parseInt(km), parseFloat(preco), imagem_url, descricao, parseInt(destaque)];
+        const motoParams = [marca, modelo, parseInt(ano), parseInt(km), parseFloat(preco), imagem_de_capa, descricao, parseInt(destaque)];
+        
+        const [result] = await connection.query(motoQuery, motoParams);
+        const novaMotoId = result.insertId;
 
-        await pool.query(query, params);
-
+        // 2. Insere todas as imagens (incluindo a de capa) na tabela 'moto_imagens'
+        if (files.length > 0) {
+            const imagensQuery = 'INSERT INTO moto_imagens (moto_id, imagem_url) VALUES ?';
+            const imagensValues = files.map(file => [novaMotoId, file.path.replace(/\\/g, "/")]);
+            
+            await connection.query(imagensQuery, [imagensValues]);
+        }
+        
+        // Se tudo deu certo, confirma a transação
+        await connection.commit();
         res.status(201).json({ message: "Moto cadastrada com sucesso!" });
 
     } catch (error) {
+        // Se algo deu errado, desfaz a transação
+        await connection.rollback();
         console.error('Erro ao cadastrar moto:', error);
         res.status(500).json({ "error": error.message });
+    } finally {
+        // Libera a conexão com o banco de dados
+        connection.release();
+    }
+});
+
+// Rota para EXCLUIR uma moto pelo seu ID
+app.delete('/api/motos/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [result] = await pool.query("DELETE FROM motos WHERE id = ?", [id]);
+
+        if (result.affectedRows === 0) {
+            // Se nenhuma linha foi afetada, a moto não foi encontrada
+            return res.status(404).json({ message: "Moto não encontrada" });
+        }
+
+        res.json({ message: "Moto excluída com sucesso!" });
+
+    } catch (error) {
+        console.error('Erro ao excluir moto:', error);
+        res.status(500).json({ "error": error.message });
+    }
+});
+
+// Rota para EXCLUIR uma IMAGEM específica pelo seu ID
+app.delete('/api/imagens/:id', async (req, res) => {
+    try {
+        const { id } = req.params; // ID da imagem, vindo da tabela moto_imagens
+
+        // Não podemos deletar a imagem principal (capa) de uma moto por esta rota.
+        // A moto precisa ter pelo menos uma imagem.
+        // (Uma lógica mais avançada seria necessária para impedir a exclusão da última foto)
+
+        const [result] = await pool.query("DELETE FROM moto_imagens WHERE id = ?", [id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Imagem não encontrada" });
+        }
+
+        res.json({ message: "Imagem excluída com sucesso!" });
+
+    } catch (error) {
+        console.error('Erro ao excluir imagem:', error);
+        res.status(500).json({ "error": error.message });
+    }
+});
+
+// Rota para ATUALIZAR uma moto existente (AGORA COM MÚLTIPLAS IMAGENS)
+app.put('/api/motos/:id', upload.array('imagens', 10), async (req, res) => {
+    const connection = await pool.getConnection();
+    try {
+        await connection.beginTransaction();
+
+        const { id } = req.params;
+        const { marca, modelo, ano, km, preco, descricao, destaque } = req.body;
+        const files = req.files;
+
+        // Monta a query para atualizar os dados de texto
+        const updateMotoQuery = `
+            UPDATE motos SET 
+            marca = ?, modelo = ?, ano = ?, km = ?, preco = ?, descricao = ?, destaque = ?
+            WHERE id = ?
+        `;
+        const motoParams = [marca, modelo, ano, km, preco, descricao, destaque, id];
+        await connection.query(updateMotoQuery, motoParams);
+
+        // Se novas imagens foram enviadas, adiciona-as
+        if (files && files.length > 0) {
+            // Primeiro, podemos apagar as imagens antigas se quisermos (opcional)
+            // await connection.query('DELETE FROM moto_imagens WHERE moto_id = ?', [id]);
+            
+            // Insere as novas imagens na tabela 'moto_imagens'
+            const imagensQuery = 'INSERT INTO moto_imagens (moto_id, imagem_url) VALUES ?';
+            const imagensValues = files.map(file => [id, file.path.replace(/\\/g, "/")]);
+            
+            await connection.query(imagensQuery, [imagensValues]);
+
+            // Se a primeira imagem enviada deve ser a nova capa, atualize-a também
+            const novaImagemCapa = files[0].path.replace(/\\/g, "/");
+            await connection.query('UPDATE motos SET imagem_url = ? WHERE id = ?', [novaImagemCapa, id]);
+        }
+
+        await connection.commit();
+        res.json({ message: "Moto atualizada com sucesso!" });
+
+    } catch (error) {
+        await connection.rollback();
+        console.error('Erro ao atualizar moto:', error);
+        res.status(500).json({ "error": error.message });
+    } finally {
+        connection.release();
     }
 });
     // --- 6. Inicialização do Servidor ---

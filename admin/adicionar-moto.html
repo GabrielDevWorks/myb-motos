@@ -47,9 +47,10 @@
                         <input type="text" id="preco" name="preco" placeholder="Ex: 16499.99" required>
                     </div>
                     <div class="form-group full-width">
-                        <label for="imagem">Imagem da Moto</label>
-                        <input type="file" id="imagem" name="imagem" accept="image/*" required>
-                        <img id="image-preview" class="image-preview" src="" alt="Pré-visualização da imagem">
+                        <label for="imagens">Imagens da Moto (até 10)</label>
+                        <input type="file" id="imagens" name="imagens" accept="image/*" required multiple>
+                        <div class="image-preview-container" id="image-preview-container">
+                            </div>
                     </div>
                     <div class="form-group full-width">
                         <label for="descricao">Descrição</label>
@@ -71,6 +72,8 @@
             </form>
         </div>
     </main>
+
+    
 <script src="../assets/js/add-moto.js"></script>
 </body>
 </html>

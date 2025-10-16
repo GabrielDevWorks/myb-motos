@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simule seu Financiamento - mybMotos</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+<body>
+
+<header class="main-header">
+    </header>
+
+<main class="container">
+    <div class="page-header">
+        <h1>Simule seu Financiamento</h1>
+        <p>Use nossa ferramenta para ter uma estimativa e envie sua proposta para análise.</p>
+    </div>
+
+    <div class="financing-layout-pro">
+       <section class="simulator-pro">
+            <h3 class="panel-title"><i class="fa-solid fa-calculator"></i> Simulador Interativo</h3>
+            
+            <div class="form-group">
+                <label for="valor-moto">Valor da Moto (R$)</label>
+                <input type="number" id="valor-moto" class="financing-input" value="20000" step="500" placeholder="Ex: 20000">
+            </div>
+            
+            <div class="form-group">
+                <label for="valor-entrada">Valor da Entrada (R$)</label>
+                <input type="number" id="valor-entrada" class="financing-input" value="5000" step="500" placeholder="Ex: 5000">
+            </div>
+
+            <div class="form-group">
+                <label for="num-parcelas">Número de Parcelas</label>
+                <div class="select-wrapper">
+                    <select id="num-parcelas">
+                        <option value="12">12 vezes</option>
+                        <option value="24">24 vezes</option>
+                        <option value="36" selected>36 vezes</option>
+                        <option value="48">48 vezes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="simulator-result-pro">
+                <span class="result-label">Valor estimado da parcela:</span>
+                <h2 id="valor-parcela">R$ ---,--</h2>
+                <small>*Simulação com taxa de juros de 1.99% a.m. O valor real pode variar.</small>
+            </div>
+        </section>
+
+        <section class="form-pro">
+            <h3 class="panel-title"><i class="fa-solid fa-file-signature"></i> Envie sua Proposta</h3>
+            <form id="financing-form">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="nome" placeholder="Nome Completo" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Seu melhor email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <input type="tel" id="telefone" placeholder="Telefone / WhatsApp" required>
+                </div>
+                <button type="submit" class="btn-submit-form">Solicitar Análise de Crédito</button>
+            </form>
+        </section>
+    </div>
+</main>
+
+<footer id="contato" class="main-footer">
+    </footer>
+
+<script src="assets/js/financiamento.js"></script>
+</body>
+</html>

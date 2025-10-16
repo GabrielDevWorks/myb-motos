@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - mybMotos</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -33,7 +34,68 @@
             </div>
     </div>
 </main>
-
+<div class="modal-overlay" id="edit-modal-overlay">
+    <div class="modal-edit" id="edit-modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar Moto</h3>
+            <button class="btn-close-modal" id="edit-modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="edit-moto-form">
+                <input type="hidden" id="edit-moto-id" name="id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit-marca">Marca</label>
+                        <input type="text" id="edit-marca" name="marca" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-modelo">Modelo</label>
+                        <input type="text" id="edit-modelo" name="modelo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-ano">Ano</label>
+                        <input type="number" id="edit-ano" name="ano" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-km">Quilometragem (KM)</label>
+                        <input type="number" id="edit-km" name="km" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-preco">Preço (R$)</label>
+                        <input type="text" id="edit-preco" name="preco" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-destaque">É um destaque?</label>
+                        <div class="select-wrapper">
+                            <select id="edit-destaque" name="destaque">
+                                <option value="0">Não</option>
+                                <option value="1">Sim</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="edit-descricao">Descrição</label>
+                        <textarea id="edit-descricao" name="descricao" rows="3"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Imagens Atuais</label>
+                        <div class="image-preview-container" id="edit-image-current-container">
+                            </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="edit-imagens">Adicionar Novas Imagens (até 10)</label>
+                        <input type="file" id="edit-imagens" name="imagens" accept="image/*" multiple>
+                        <div class="image-preview-container" id="edit-image-preview-container">
+                            </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit-form">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

@@ -19,7 +19,7 @@
         
         <nav class="main-nav">
             <a href="estoque.html">Motos</a>
-            <a href="#">Financiamento</a>
+            <a href="financiamento.html">Financiamento</a>
             <a href="sobre.html">Sobre Nós</a>
             <a href="#contato">Contato</a>
         </nav>
@@ -70,12 +70,19 @@
 
 <main class="container">
     <div class="moto-detail-layout">
-        <div class="moto-image-gallery">
-            <img id="moto-main-image" src="https://placehold.co/800x600/e9e9e9/cccccc?text=Carregando..." alt="Foto da moto">
+<div class="moto-image-gallery">
+            <div class="gallery-main-image-wrapper">
+                <img src="https://placehold.co/800x600/e9e9e9/cccccc?text=Carregando..." alt="Imagem Principal" class="gallery-main-image" id="gallery-main-image">
+                <button class="gallery-nav-btn prev-btn" id="prev-image-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="gallery-nav-btn next-btn" id="next-image-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="gallery-thumbnails" id="gallery-thumbnails">
+                </div>
         </div>
 
-        <div class="moto-info-panel">
-            <h1 id="moto-title">Carregando nome do modelo...</h1>
+       <div class="moto-info-panel">
+            <h1 id="moto-title">Carregando...</h1>
+
             <p id="moto-price" class="moto-detail-price">R$ --,--</p>
             
             <div class="moto-specs-box">
@@ -122,7 +129,7 @@
                     <li><a href="index.html">Início</a></li>
                     <li><a href="estoque.html">Estoque Completo</a></li>
                     <li><a href="sobre.html">Sobre Nós</a></li>
-                    <li><a href="#">Financiamento</a></li>
+                    <li><a href="financiamento.html">Financiamento</a></li>
                 </ul>
             </div>
 
