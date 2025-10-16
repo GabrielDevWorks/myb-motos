@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - mybMotos</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h2>Painel mybMotos</h2>
+            <a href="#">Sair</a>
+        </div>
+    </header>
+<main class="container">
+    <div class="dashboard-header">
+        <h1>Gerenciador de Estoque</h1>
+        <a href="adicionar-moto.html" class="btn-add-new">
+            <i class="fa-solid fa-plus"></i> Adicionar Nova Moto
+        </a>
+    </div>
+
+    <div class="moto-list-container">
+        <div class="moto-list-header">
+            <div class="col-info">Moto</div>
+            <div class="col-ano">Ano</div>
+            <div class="col-preco">Preço</div>
+            <div class="col-acoes">Ações</div>
+        </div>
+        <div id="moto-list-body">
+            </div>
+    </div>
+</main>
+
+<script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

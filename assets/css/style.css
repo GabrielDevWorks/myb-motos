@@ -1,0 +1,1258 @@
+html {
+    scroll-behavior: smooth;
+}
+:root {
+    --primary-color: #E60000; /* Vermelho forte, inspirado em marcas automotivas */
+    --dark-color: #1a1a1a;    /* Preto/Cinza bem escuro para textos */
+    --gray-color: #2c2c2c;    /* Cinza escuro para elementos secundários */
+    --light-color: #f4f5f7;   /* Cinza muito claro para o fundo do site */
+    --white-color: #ffffff;
+    --border-color: #e0e0e0; /* Cor para bordas sutis */
+    --font-family: 'Poppins', sans-serif; /* Nova fonte profissional */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--light-color); /* Fundo claro para um visual mais limpo */
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Localize este bloco no seu style.css */
+.main-header {
+    position: relative; /* <-- ADICIONE ESTA LINHA */
+    background-color: var(--white-color);
+    padding: 15px 0;
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header .logo img {
+    height: 35px;
+    
+}
+
+/* Estilos da Navegação Principal */
+.main-nav a {
+    color: #555;
+    margin: 0 18px;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    padding-bottom: 5px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color);
+}
+
+/* Efeito de sublinhado animado */
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after {
+    width: 100%;
+}
+
+/* Área de Ações e CTA */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-contact {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #333;
+}
+
+.header-contact i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.btn-cta {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(230, 0, 0, 0.4);
+}
+
+/* --- Seção Hero --- */
+.hero {
+    /* Por enquanto, um fundo sólido. Adicionaremos uma imagem de fundo depois. */
+    background-color: #e9e9e9; 
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+    font-family: var(--font-family);
+}
+
+.search-box input:focus {
+    outline: 2px solid var(--primary-color);
+}
+
+.btn-search {
+    padding: 15px 30px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    font-family: var(--font-family);
+    font-weight: 500;
+}
+
+/* --- Seção de Destaques --- */
+.featured-bikes {
+    padding: 60px 0;
+}
+
+.featured-bikes h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* --- Rodapé --- */
+.main-footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--white-color);
+    color: #777;
+}
+
+/* --- Estilos da Grade e Cards de Moto (v2.0 Profissional) --- */
+.bikes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.bike-card {
+    background-color: var(--white-color);
+    border: 1px solid #E9E9E9;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    max-width: 380px; /* <-- ADICIONE ESTA LINHA PARA LIMITAR A LARGURA */
+}
+
+.bike-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.bike-card-img {
+    position: relative;
+}
+
+.bike-card-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.bike-favorite-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--dark-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.bike-favorite-icon:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+.bike-card-content {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.bike-card-content h3 {
+    font-size: 1.1rem; /* Mais contido e elegante */
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+    /* Forçar quebra de linha para títulos longos */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bike-price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--dark-color); /* Preço em preto dá mais peso */
+    margin: 8px 0;
+}
+
+.bike-card-info {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 18px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.info-item i {
+    font-size: 0.8rem;
+}
+
+.btn-details {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: auto; /* Alinha na parte inferior */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-details:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+
+/* --- Estilos da Página de Estoque --- */
+.page-header {
+    text-align: center;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.stock-page-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Coluna fixa de 280px para filtros, resto para a grade */
+    gap: 30px;
+}
+
+/* --- Estilos da Sidebar de Filtros --- */
+.filters-sidebar {
+    background-color: var(--white-color);
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    height: fit-content; /* Faz a altura se ajustar ao conteúdo */
+}
+
+.filters-sidebar h4 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.filter-group {
+    margin-bottom: 25px;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.filter-group input[type="text"],
+.filter-group input[type="number"],
+.filter-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+}
+
+.filter-group .year-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-value {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.btn-filter {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-filter:hover {
+    background-color: #c00;
+}
+
+
+/* --- Estilos da Página de Detalhes da Moto --- */
+.moto-detail-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Coluna da imagem maior que a de texto */
+    gap: 40px;
+    padding: 40px 0;
+}
+
+.moto-image-gallery img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.moto-info-panel h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.moto-detail-price {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+.moto-specs-box {
+    display: flex;
+    gap: 25px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 25px;
+}
+
+.moto-description h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.moto-description p {
+    color: #555;
+    line-height: 1.7;
+}
+
+.moto-cta-box {
+    margin-top: 30px;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #25D366;
+    color: var(--white-color);
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp i {
+    font-size: 1.5rem;
+}
+
+
+/* --- ESTILOS DA NOVA LOGO TIPOGRÁFICA --- */
+.logo {
+    display: flex; /* Para alinhar "myb" e "Motos" lado a lado */
+    align-items: baseline; /* Alinha pela base do texto */
+    text-decoration: none;
+    color: inherit; /* Garante que a cor padrão do link não atrapalhe */
+}
+
+.logo-main {
+    font-family: 'Montserrat', sans-serif; /* Uma fonte robusta para o "myb" */
+    font-weight: 700;
+    font-size: 2.2rem; /* Tamanho maior para o destaque */
+    color: var(--primary-color); /* Usa a cor principal do tema */
+    letter-spacing: -1px; /* Espaçamento entre letras para compactar um pouco */
+}
+
+.logo-moto {
+    font-family: 'Oswald', sans-serif; /* Uma fonte mais estilizada para "Motos" */
+    font-weight: 500;
+    font-size: 1.8rem; /* Um pouco menor que o "myb" */
+    color: var(--text-color); /* Uma cor secundária ou a cor do texto padrão */
+    margin-left: 5px; /* Pequeno espaçamento entre "myb" e "Motos" */
+    position: relative;
+    top: -2px; /* Ajusta um pouco a posição vertical para alinhar melhor */
+}
+
+/* Ajustes para o cabeçalho se necessário */
+.main-header .logo {
+    padding: 10px 0; /* Para dar um respiro em cima e embaixo da logo no cabeçalho */
+}
+
+/* Se você quiser remover a logo antiga, pode apagar este CSS */
+.logo img {
+    /* display: none; */ /* Descomente para esconder a imagem se ainda tiver a tag img */
+    max-height: 50px; /* Mantém se você quiser voltar a usar imagem */
+    width: auto;
+}
+
+
+/* --- Estilos das Páginas de Conteúdo (Sobre/Contato) --- */
+.content-section {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    background: var(--white-color);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.content-section h2, .content-section h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.content-section p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+.content-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* --- Estilos Específicos da Página de Contato --- */
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+}
+.contact-info h3, .contact-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+}
+.info-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+.info-block i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-top: 5px;
+}
+.info-block p {
+    margin: 0;
+    line-height: 1.6;
+    color: #555;
+}
+.map-container {
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-submit:hover {
+    background-color: #c00;
+}
+
+
+/* --- Estilos do Novo Rodapé (Estilo Honda) --- */
+.main-footer {
+    background-color: #f0f0f0; /* Cinza claro, como na referência */
+    color: #555;
+    padding: 60px 0 0 0;
+    margin-top: 60px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.footer-column h4 {
+    font-size: 1.1rem;
+    color: var(--primary-color); /* Títulos em vermelho */
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.logo-moto-footer {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--dark-color); /* Logo escura no rodapé claro */
+    margin-left: 5px;
+    position: relative;
+    top: -2px;
+}
+
+.footer-social-title {
+    margin-top: 25px;
+    font-size: 1.1rem;
+    display: flex;
+    left: 200px;
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.footer-socials a {
+    color: #555;
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.info-block-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.info-block-footer i {
+    font-size: 1.1rem;
+    color: #888;
+}
+
+.footer-map-section {
+    padding: 40px 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-map-section h4 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.footer-bottom {
+    background-color: #e0e0e0;
+    padding: 20px 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+.footer-bottom .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-legal-links a {
+    color: #666;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+.footer-legal-links a:hover {
+    color: var(--primary-color);
+}
+
+
+/* ==============================================
+   ESTILOS DE RESPONSIVIDADE (VERSÃO FINAL E CORRIGIDA)
+   ==============================================
+*/
+
+/* Esconde o ícone e o menu por padrão em telas grandes */
+.hamburger-icon,
+.mobile-menu {
+    display: none;
+}
+
+/* REGRAS PARA TELAS MENORES QUE 992px (TABLETS E CELULARES) */
+@media (max-width: 992px) {
+
+    /* Esconde a navegação e as ações do desktop */
+    .main-nav,
+    .header-actions {
+        display: none;
+    }
+
+    /* Mostra o ícone hambúrguer */
+    .hamburger-icon {
+        display: block; /* A regra mais importante */
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        color: var(--dark-color);
+        cursor: pointer;
+    }
+
+    /* Ajusta o container do header para a logo ficar no meio e o ícone na ponta */
+    .main-header .container {
+        justify-content: space-between;
+        position: relative;
+    }
+    .main-header .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Regras do painel do menu mobile que abre */
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--white-color);
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 100;
+        border-top: 1px solid var(--border-color);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        
+        /* A mágica da animação acontece aqui */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+    }
+    /* Quando o menu está ativo, ele ganha altura e aparece */
+    .mobile-menu.is-active {
+        max-height: 500px;
+    }
+    .mobile-menu a {
+        padding: 18px 20px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .mobile-menu a:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Ajusta os layouts de coluna para ficarem verticais */
+    .stock-page-layout, 
+    .moto-detail-layout, 
+    .contact-layout, 
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==============================================
+   NOVOS ESTILOS DO MENU LATERAL (ESTILO HONDA)
+   ============================================== */
+
+/* O container principal que controla a visibilidade */
+.mobile-menu-container {
+    /* Escondido por padrão para não interferir */
+    visibility: hidden;
+    position: fixed; /* Garante que o menu e o overlay cubram a tela toda */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+/* Camada escura de fundo */
+.mobile-menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0; /* Começa transparente */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Painel do menu que desliza da esquerda */
+.mobile-menu-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100%;
+    background-color: var(--white-color);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    transform: translateX(-100%); /* Começa fora da tela, à esquerda */
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- ESTADOS QUANDO O MENU ESTÁ ABERTO --- */
+.mobile-menu-container.is-open {
+    visibility: visible; /* Torna o container visível */
+}
+
+.mobile-menu-container.is-open .mobile-menu-overlay {
+    opacity: 1; /* Mostra a camada escura */
+}
+
+.mobile-menu-container.is-open .mobile-menu-panel {
+    transform: translateX(0); /* Move o menu para a tela */
+}
+
+
+/* --- Estilos internos do painel do menu --- */
+
+/* Cabeçalho com o botão de fechar */
+.mobile-menu-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+}
+
+.btn-close-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    margin-left: -10px; /* Alinha melhor com a borda */
+}
+.btn-close-menu i {
+    font-size: 1.5rem;
+}
+
+/* Links de navegação */
+.mobile-main-nav {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz a navegação ocupar o espaço restante */
+}
+
+.mobile-main-nav a {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 25px;
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    border-bottom: 1px solid #e9e9e9;
+    transition: background-color 0.2s ease;
+}
+
+.mobile-main-nav a:hover {
+    background-color: #f0f0f0;
+}
+
+.mobile-main-nav a i {
+    font-size: 1.5rem;
+    color: #777;
+    width: 30px; /* Alinha os ícones */
+    text-align: center;
+}
+
+
+/* --- ESTILOS DO PAINEL ADMINISTRATIVO (v2.0) --- */
+.admin-body {
+    /* Remove o flexbox daqui para o container principal controlar o layout */
+    background-color: var(--light-color);
+}
+
+.login-page-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Divide a tela em duas colunas */
+    height: 100vh;
+}
+
+/* Lado Esquerdo (Branding) */
+.login-branding-side {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
+.branding-content .logo-moto-inverted {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--white-color); /* Versão da logo com texto branco */
+    margin-left: 5px;
+}
+.branding-content p {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-top: 15px;
+}
+
+/* Lado Direito (Formulário) */
+.login-form-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+.login-box h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.login-box p {
+    color: #777;
+    margin-bottom: 40px;
+}
+
+/* Estilo moderno para os inputs com ícones */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 50px; /* Espaço para o ícone */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(230, 0, 0, 0.1);
+}
+.input-group input:focus + i {
+    color: var(--primary-color);
+}
+
+/* Botão de submit melhorado */
+.login-box .btn-submit {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(230, 0, 0, 0.2);
+}
+
+/* --- Responsividade para a tela de login --- */
+@media (max-width: 768px) {
+    .login-page-container {
+        grid-template-columns: 1fr; /* Coluna única em telas pequenas */
+    }
+    .login-branding-side {
+        padding: 60px 20px;
+        height: 40vh; /* Ocupa uma parte menor da tela */
+    }
+    .login-form-side {
+        height: 60vh;
+    }
+}
+
+
+/* --- ESTILOS DO DASHBOARD (v2.0 UX/UI) --- */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0 30px 0;
+}
+.dashboard-header h1 {
+    font-size: 2rem;
+}
+.btn-add-new {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease;
+}
+.btn-add-new:hover {
+    transform: scale(1.05);
+}
+
+.moto-list-header {
+    display: grid;
+    grid-template-columns: 4fr 1fr 2fr 1fr; /* Define o alinhamento das colunas */
+    padding: 0 25px;
+    margin-bottom: 15px;
+    color: #888;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+#moto-list-body .moto-list-item {
+    display: grid;
+    grid-template-columns: 4fr 1fr 2fr 1fr; /* Alinhamento igual ao header */
+    align-items: center;
+    background-color: var(--white-color);
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#moto-list-body .moto-list-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.col-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.item-moto-img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.item-moto-details {
+    display: flex;
+    flex-direction: column;
+}
+.item-moto-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.item-moto-id {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.col-preco {
+    font-weight: 600;
+}
+
+.col-acoes {
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 15px;
+}
+.btn-action-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #888;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.btn-action-icon:hover {
+    transform: scale(1.2);
+}
+.btn-edit:hover {
+    color: #007bff;
+}
+.btn-delete:hover {
+    color: var(--primary-color);
+}
+.list-empty-message {
+    text-align: center;
+    padding: 40px;
+    background-color: var(--white-color);
+    border-radius: 8px;
+}
+
+
+/* --- ESTILOS DAS PÁGINAS INTERNAS DO ADMIN --- */
+.admin-body-internal {
+    background-color: var(--light-color);
+}
+.form-container {
+    background-color: var(--white-color);
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    gap: 25px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1; /* Ocupa a largura inteira */
+}
+
+.form-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: right; /* Alinha o botão à direita */
+}
+
+.btn-submit-form {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-submit-form:hover {
+    background-color: #c00;
+}
+
+/* --- ESTILOS PARA CUSTOMIZAR O SELECT --- */
+
+/* O container que nos permite posicionar a seta */
+.select-wrapper {
+    position: relative;
+}
+
+/* A seta customizada */
+.select-wrapper::after {
+    content: '▼'; /* Você pode usar '▼' ou '\25BC' */
+    font-size: 1rem;
+    color: #888;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Garante que você possa clicar no select através da seta */
+}
+
+/* Remove a aparência padrão do select e o iguala aos outros inputs */
+.form-container select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    background-color: var(--white-color);
+    cursor: pointer;
+}
+
+
+.image-preview {
+    display: none; /* Começa escondida */
+    max-width: 200px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Moto - mybMotos</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+<body class="admin-body-internal">
+
+    <header class="main-header">
+        <div class="container">
+            <h2>Painel mybMotos</h2>
+            <a href="dashboard.html">Voltar para o Dashboard</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Adicionar Nova Moto ao Estoque</h1>
+            <p>Preencha os campos abaixo com as informações do veículo.</p>
+        </div>
+
+        <div class="form-container">
+            <form id="add-moto-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="marca">Marca</label>
+                        <input type="text" id="marca" name="marca" placeholder="Ex: HONDA" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modelo">Modelo</label>
+                        <input type="text" id="modelo" name="modelo" placeholder="Ex: CG 160 START" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ano">Ano</label>
+                        <input type="number" id="ano" name="ano" placeholder="Ex: 2023" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="km">Quilometragem (KM)</label>
+                        <input type="number" id="km" name="km" placeholder="Ex: 9481" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="preco">Preço (R$)</label>
+                        <input type="text" id="preco" name="preco" placeholder="Ex: 16499.99" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="imagem">Imagem da Moto</label>
+                        <input type="file" id="imagem" name="imagem" accept="image/*" required>
+                        <img id="image-preview" class="image-preview" src="" alt="Pré-visualização da imagem">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" rows="4" placeholder="Ex: Manual e chave. Financiamos e pegamos troca..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="destaque">É um destaque da home?</label>
+                        <div class="select-wrapper">
+                            <select id="destaque" name="destaque">
+                                <option value="0">Não</option>
+                                <option value="1">Sim</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit-form">Cadastrar Moto</button>
+                </div>
+            </form>
+        </div>
+    </main>
+<script src="../assets/js/add-moto.js"></script>
+</body>
+</html>
