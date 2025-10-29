@@ -382,11 +382,14 @@ async function startServer() {
         }
     });
 
-    // --- 6. Inicialização do Servidor ---
-    app.listen(PORT, () => {
-        console.log(`Servidor rodando em http://localhost:${PORT}`);
-        console.log(`Frontend disponível em http://localhost/caminho/para/seu/projeto/index.html`);
-        console.log(`Admin disponível em http://localhost/caminho/para/seu/projeto/admin/login.html`);
+// --- 6. Inicialização do Servidor (AJUSTADO PARA BRASIL CLOUD) ---
+    // Pegamos o Host e a Porta das Variáveis de Ambiente
+    const HOST = process.env.HOST || '0.0.0.0';
+    const PORT_NUM = process.env.PORT || 3000;
+
+    app.listen(PORT_NUM, HOST, () => {
+        console.log(`Servidor rodando em http://${HOST}:${PORT_NUM}`);
+        console.log(`Site pronto para receber conexões do proxy do Brasil Cloud.`);
     });
 }
 
