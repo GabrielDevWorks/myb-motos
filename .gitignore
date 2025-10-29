@@ -1,0 +1,7 @@
+# Ignora pastas de dependências
+/node_modules
+/app/node_modules
+
+# Ignora arquivos de senha
+.env
+/app/.env
