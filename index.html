@@ -70,17 +70,52 @@
 </div>
 </header>
     <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Encontre a moto dos seus sonhos</h1>
-                <p>O maior e mais confiável estoque de motos novas e seminovas.</p>
-                <div class="search-box">
-                    <input type="text" placeholder="Digite a marca ou modelo...">
-                    <button class="btn-search">Buscar</button>
+<section class="hero">
+    <div class="hero-carousel-container" id="hero-carousel">
+        
+        <div class="hero-carousel-track">
+            
+            <div class="hero-slide" style="background-image: url('assets/img/motos/hero-exemplo-1.jpg');">
+                <div class="hero-content">
+                    <h1>Encontre a moto dos seus sonhos</h1>
+                    <p>O maior e mais confiável estoque de motos novas e seminovas.</p>
+                    <div class="search-box">
+                        <input type="text" placeholder="Digite a marca ou modelo...">
+                        <button class="btn-search">Buscar</button>
+                    </div>
                 </div>
             </div>
-        </section>
 
+            <div class="hero-slide" style="background-image: url('assets/img/motos/hero-exemplo-2.jpg');">
+                <div class="hero-content">
+                    <h1>Motos Selecionadas</h1>
+                    <p>Qualidade e procedência que você só encontra aqui.</p>
+                    <div class="search-box">
+                        <input type="text" placeholder="Digite a marca ou modelo...">
+                        <button class="btn-search">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-slide" style="background-image: url('assets/img/motos/hero-exemplo-3.jpg');">
+                <div class="hero-content">
+                    <h1>Financiamento Facilitado</h1>
+                    <p>Simule agora e saia de moto nova hoje mesmo.</p>
+                    <div class="search-box">
+                        <input type="text" placeholder="Digite a marca ou modelo...">
+                        <button class="btn-search">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-btn prev" id="hero-prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="carousel-btn next" id="hero-next"><i class="fa-solid fa-chevron-right"></i></button>
+        
+        <div class="carousel-pagination" id="hero-pagination"></div>
+    </div>
+</section>
       <section id="estoque" class="featured-bikes">
     <div class="container">
         <h2>Motos em Destaque</h2>
@@ -160,4 +195,9 @@
 
     <script src="assets/js/script.js"></script>
 </body>
+<div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Buscando as melhores motos...</p>
+    </div>
+    <header class="main-header">
 </html>

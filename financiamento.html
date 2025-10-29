@@ -12,7 +12,64 @@
 <body>
 
 <header class="main-header">
-    </header>
+    <div class="container">
+        <a href="index.html" class="logo">
+            <span class="logo-main">myb</span><span class="logo-moto">Motos</span>
+        </a>
+        
+        <nav class="main-nav">
+            <a href="estoque.html">Motos</a>
+            <a href="financiamento.html">Financiamento</a>
+            <a href="sobre.html">Sobre Nós</a>
+            <a href="#contato">Contato</a>
+        </nav>
+        
+        <button class="hamburger-icon" id="hamburger-icon" aria-label="Abrir menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+<div class="header-actions">
+    <div class="header-contact">
+        <i class="fa-solid fa-phone"></i>
+        <span>(19) 98151-7788</span>
+    </div>
+    <a href="#contato" class="btn-cta">Fale Conosco</a>
+</div>
+    </div>
+<div class="mobile-menu-container" id="mobile-menu-container">
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <div class="mobile-menu-panel" id="mobile-menu-panel">
+        <div class="mobile-menu-header">
+            <button class="btn-close-menu" id="btn-close-menu">
+                <i class="fa-solid fa-xmark"></i>
+                <span>FECHAR</span>
+            </button>
+            </div>
+        <nav class="mobile-main-nav">
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Início</span>
+            </a>
+            <a href="estoque.html">
+                <i class="fa-solid fa-motorcycle"></i>
+                <span>Motos</span>
+            </a>
+            <a href="#">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                <span>Financiamento</span>
+            </a>
+            <a href="sobre.html">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Sobre Nós</span>
+            </a>
+            <a href="#contato">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Contato</span>
+            </a>
+        </nav>
+    </div>
+</div>
+</header>
 
 <main class="container">
     <div class="page-header">
@@ -79,4 +136,8 @@
 
 <script src="assets/js/financiamento.js"></script>
 </body>
+<div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Buscando as melhores motos...</p>
+</div>
 </html>

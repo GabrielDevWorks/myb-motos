@@ -213,6 +213,7 @@ img {
     flex-direction: column;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     max-width: 380px; /* <-- ADICIONE ESTA LINHA PARA LIMITAR A LARGURA */
+    cursor: pointer;
 }
 
 .bike-card:hover {
@@ -1677,4 +1678,273 @@ img {
     font-size: 1rem;
     background-color: var(--white-color);
     cursor: pointer;
+}
+
+
+/* ==============================================
+   ESTILOS DO HERO CARROSSEL AVANÇADO (FADE + KEN BURNS)
+   ============================================== */
+
+/* 1. Keyframes para as Animações */
+
+/* Animação Ken Burns (Zoom suave) */
+@keyframes kenBurns {
+    0% {
+        transform: scale(1.0) translate(0, 0);
+    }
+    100% {
+        transform: scale(1.15) translate(-2%, 2%); /* Zoom in e move um pouco */
+    }
+}
+
+/* Animação do texto (Fade In + Sobe) */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 2. Seção Hero (Wrapper principal) */
+.hero {
+    padding: 0; 
+    background-color: var(--dark-color);
+    height: 70vh;
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3. Container do Carrossel */
+.hero-carousel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* O Track não se move, só segura os slides */
+.hero-carousel-track {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 4. Slides (Lógica do Fade) */
+.hero-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute; /* Slides empilhados */
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 1.2s ease-in-out; /* Transição de FADE */
+    z-index: 5;
+    
+    /* Prepara para centralizar o conteúdo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* O slide ativo é o único visível */
+.hero-slide.is-active {
+    opacity: 1;
+    z-index: 10;
+}
+
+/* 5. Efeito Ken Burns no Slide Ativo */
+/* Criamos um pseudo-elemento para animar o background sem afetar o fade */
+.hero-slide.is-active::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: inherit; /* Copia o background-image do .hero-slide */
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+    /* Aplica a animação SÓ no slide ativo */
+    animation: kenBurns 10s linear infinite alternate;
+}
+
+/* 6. Overlay escuro (Fica entre o Ken Burns e o Conteúdo) */
+.hero-slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45); /* Um pouco mais escuro */
+    z-index: -1;
+}
+
+/* 7. Conteúdo (h1, p, search) - Agora animado */
+.hero-content {
+    color: var(--white-color);
+    max-width: 650px;
+    padding: 20px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    
+    /* Prepara para a animação */
+    opacity: 0;
+}
+
+.hero-slide.is-active .hero-content {
+    /* Ativa a animação do conteúdo SÓ no slide ativo */
+    /* (nome, duração, easing, delay, iteração, fill-mode) */
+    animation: fadeInUp 1s ease-out 0.8s 1 forwards; 
+}
+
+/* Garante que o H1 e o P fiquem brancos */
+.hero-content h1 {
+    color: var(--white-color);
+}
+.hero-content p {
+    color: #f0f0f0;
+}
+
+/* 8. Botões de Navegação (Prev/Next) */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20; /* Fica acima do slide ativo */
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+}
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.carousel-btn.prev { left: 15px; border-radius: 0 5px 5px 0; }
+.carousel-btn.next { right: 15px; border-radius: 5px 0 0 5px; }
+
+/* 9. Paginação (Bolinhas) */
+.carousel-pagination {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    gap: 10px;
+}
+.pagination-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.pagination-dot:hover {
+    transform: scale(1.2);
+}
+.pagination-dot.active {
+    background-color: var(--white-color);
+}
+
+/* 10. Responsividade (O principal) */
+@media (max-width: 768px) {
+    .hero {
+        height: 80vh; 
+        min-height: 450px;
+    }
+
+    .carousel-btn {
+        display: none;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* A caixa de busca no mobile */
+    .search-box {
+        flex-direction: column;
+        box-shadow: none;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .search-box input, .btn-search {
+        border-radius: 5px;
+    }
+    .search-box input {
+        text-align: center;
+        width: 100%;
+    }
+    .btn-search {
+        margin-top: 10px;
+        width: 100%;
+    }
+}
+
+.loading-overlay {
+    position: fixed; /* Fica parada no mesmo lugar */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 26, 26, 0.95); /* Fundo escuro */
+    z-index: 9998; /* Fica por cima de tudo */
+    
+    /* Centraliza o conteúdo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    /* COMEÇA INVISÍVEL */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Animação suave de 0.4s */
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
+/* Classe que o JS vai usar para MOSTRAR a tela */
+.loading-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Animação do Spinner (o "carregando") */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda cinza */
+    border-top-color: var(--primary-color); /* Borda vermelha da sua marca */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* Faz girar */
+    margin-bottom: 25px;
+}
+
+.loading-overlay p {
+    font-size: 1.1rem;
+    font-weight: 500;
 }
